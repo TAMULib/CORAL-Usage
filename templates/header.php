@@ -16,12 +16,24 @@
 **************************************************************************************************************************
 */
 
+session_start();
+
 include_once 'directory.php';
 include_once 'user.php';
 
 
 $util = new Utility();
 $config = new Configuration();
+
+// tamu specific
+// use cas for authentication
+ if($config->tamu->enableCAS == 'Y') {
+     include_once 'cas.php';
+     getCAS($config->tamu->host_cas, $config->tamu->ip_cas);
+ }
+//
+
+
 
 //get the current page to determine which menu button should be depressed
 $currentPage = $_SERVER["SCRIPT_NAME"];
@@ -141,7 +153,12 @@ if ((file_exists($util->getCORALPath() . "index.php")) || ($config->settings->or
 				if ($config->settings->cancellationModule == 'Y') {
 				?>
 				<li><a href="<?php echo $coralURL; ?>cancellation/" target='_blank'><img src='images/change/coral-cancellation.gif'></a></li>
-				<?php } ?>
+        <?php
+        }
+        if ($config->settings->managementModule == 'Y') {
+        ?>
+        <li><a href="<?php echo $coralURL; ?>management/" target='_blank'><img src='images/change/coral-management.gif'></a></li>
+        <?php } ?>
 			</ul>
 		</li>
 		</ul>
