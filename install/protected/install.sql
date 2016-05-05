@@ -131,7 +131,7 @@ CREATE TABLE  `TitleIdentifier` (
   `titleIdentifierID` int(11) NOT NULL AUTO_INCREMENT,
   `titleID` int(11) DEFAULT NULL,
   `identifier` varchar(25) DEFAULT NULL,
-  `identifierType` varchar(25) DEFAULT NULL,
+  `identifierType` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`titleIdentifierID`),
   KEY `Index_titleID` (`titleID`),
   KEY `Index_issn` (`identifier`) USING BTREE,
@@ -210,6 +210,12 @@ CREATE TABLE `ImportLogPlatformLink` (
   PRIMARY KEY (`importLogPlatformLinkID`),
   KEY `Index_platformID` (`platformID`)
 ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `Version`;
+CREATE TABLE `Version` (
+  `version` varchar(10) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
+INSERT INTO Version (version) values('1.2');
 
 INSERT INTO Layout (layoutCode, name, resourceType) values('JR1_R3', 'Journals (JR1) R3', 'Journal');
 INSERT INTO Layout (layoutCode, name, resourceType) values('JR1a_R3', 'Journals (JR1) R3 archive', 'Journal');
